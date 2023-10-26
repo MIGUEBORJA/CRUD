@@ -1,6 +1,5 @@
 import { createContext, useState, useContext, useEffect } from "react";
 import { loginRequest, registerRequest, verifyTokenRequest } from "../api/auth.js";
-import cookies from 'js-cookie';
 import Cookies from "js-cookie";
 
 
@@ -63,6 +62,7 @@ export const AuthProvider = ({ children }) => {
 
         if(!cookies.token){
             setIsAuthenticathed(false)
+            setLoading(false)
             return setUser(null)
         }
 
@@ -72,6 +72,7 @@ export const AuthProvider = ({ children }) => {
             if(!res.data){
                 setIsAuthenticathed(false)
                 setLoading(false)
+                return;
             }
             setIsAuthenticathed(true);
             setUser(res.data); 
